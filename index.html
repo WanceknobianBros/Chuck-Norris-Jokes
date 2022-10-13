@@ -1,0 +1,70 @@
+<!doctype HTML>
+<html>
+
+  <head>
+    <title>Chuck Norris - A Biography</title>
+
+    <style>
+      * {
+        background-color: black;
+      }
+
+      #btn {
+        color: orange;
+        border-radius: 15px;
+        border: 3px solid orange;
+        background-color: rgba(0, 0, 0, 255);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+
+      .container {
+        background-color: black;
+      }
+
+      #joke {
+        color: orange;
+        font-family: sans-serif;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <center>
+        <button id="btn">Get More Wisdom</button>
+        <h3 id="joke"></h3>
+      </center>
+    </div>
+    <script>
+      var joke = document.getElementById("joke")
+      var button = document.getElementById("btn")
+
+      function getRandomJoke() {
+        const ajax = new XMLHttpRequest();
+        const url = 'https://api.chucknorris.io/jokes/random';
+
+        ajax.open('GET', url, true);
+
+        ajax.onreadystatechange = function() {
+          if (this.status === 200 && this.readyState === 4) {
+            console.log(this.responseText);
+            let data = JSON.parse(this.responseText);
+            joke.innerText = (`${data.value}`);
+          }
+        }
+        ajax.send();
+      }
+      button.addEventListener('click', function() {
+        getRandomJoke();
+      });
+
+    </script>
+  </body>
+
+</html>
